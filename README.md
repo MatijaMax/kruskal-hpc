@@ -10,4 +10,3 @@ Parallelization project in C - How to make Kruskal's algorithm faster?
 - run *thrust.cu* => nvcc thrust.cu -rdc=true -lcudadevrt -Xcompiler -fopenmp
 - run *kruskal.cu* => nvcc kruskal.cu -rdc=true -lcudadevrt -Xcompiler -fopenmp -lm
 <br>
-***
