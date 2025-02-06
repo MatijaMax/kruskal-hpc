@@ -55,7 +55,7 @@ void gpu_sort(unsigned int (*edges)[3], int numEdges) {
     thrust::device_vector<unsigned int> device_edge_weights1 = host_edge_weights1;
     thrust::device_vector<unsigned int> device_edge_weights2 = host_edge_weights2;
     thrust::device_vector<unsigned int> device_nodes1 = host_nodes1;
-    thrust::device_vector<unsigned int> device_nodes2 = host_nodes1;
+    thrust::device_vector<unsigned int> device_nodes2 = host_nodes2;
 
     //cudaEvent_t start, stop;
     //cudaEventCreate(&start);
@@ -65,9 +65,11 @@ void gpu_sort(unsigned int (*edges)[3], int numEdges) {
     thrust::sort_by_key(device_edge_weights1.begin(), device_edge_weights1.end(), device_nodes1.begin());
     thrust::sort_by_key(device_edge_weights2.begin(), device_edge_weights2.end(), device_nodes2.begin());     
  
+    cudaDeviceSynchronize();
+
     thrust::copy(device_edge_weights1.begin(), device_edge_weights1.end(), host_edge_weights1.begin());
     thrust::copy(device_nodes1.begin(), device_nodes1.end(), host_nodes1.begin());
-    thrust::copy(device_nodes2.begin(), device_nodes2.end(), host_nodes1.begin());
+    thrust::copy(device_nodes2.begin(), device_nodes2.end(), host_nodes2.begin());
 
     //cudaEventRecord(stop);
     //cudaEventSynchronize(stop);
